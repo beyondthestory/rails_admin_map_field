@@ -1,1 +1,16 @@
-%h2 Map Field Helper
+= javascript_include_tag ("http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=false")
+= #require_asset('ramf.js')
+
+:javascript
+  jQuery(function(){
+    var latlng = new google.maps.LatLng( #{form.object.send(field.name) || field.default_latitude}, #{form.object.send(field.name) || field.default_longitude});
+    var myOptions = {
+      zoom: 8,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("#{field.dom_name}"), myOptions);
+  });
+%div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px"}
+= form.send :hidden_field, field.name
+= form.send :hidden_field, field.longitude_field
