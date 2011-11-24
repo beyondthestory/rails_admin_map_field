@@ -1,7 +1,7 @@
 Rails Admin Map Field
 =====================
 
-rails_admin_map_field is a gem that works with sferik's *rails_admin* (https://github.com/sferik/rails_admin) to provide an easy to use Google Maps interface for displaying and setting geographic co-ordinates in a model.
+rails_admin_map_field is a gem that works with sferik's **rails_admin** (https://github.com/sferik/rails_admin) to provide an easy to use Google Maps interface for displaying and setting geographic co-ordinates in a model.
 
 Where a latitude and longitude is set on the model, it is indicated by a marker shown on a Google map centered at the marker. The administrator can change the value of these fields by clicking on the desired new location on the map.
 
@@ -26,7 +26,7 @@ RailsAdmin.config do |config|
 end
 ```
 
-*Note*: The field which is set as a map-type field must be the latitude field, not the longitude. By default, rails_admin_map_field will guess that the longitude field is called "longitude".
+**Note**: The field which is set as a map-type field must be the latitude field, not the longitude. By default, rails_admin_map_field will guess that the longitude field is called "longitude".
 
 Configuration
 =============
@@ -37,6 +37,23 @@ For different configurations, rails_admin_map_field can be configured with the f
 - `google_api_key` - if you use a Google Maps API Key, it can be specified here.
 - `default_latitude` - the latitude to center the map shown on if the latitude field is blank. Defaults to 51.5, the latitude of London, UK.
 - `default_longitude` - the longitude used if the longitude field is blank. Defaults to -0.126, the longitude of London, UK.
+
+A more complicated configuration example:
+
+```ruby
+RailsAdmin.config do |config|
+  config.model Point do
+    edit do
+      field :lat, :map do
+        longitude_field :lon
+        google_api_key "a1b2c3d4e5f6deadbeef"
+        default_latitude -34.0  # Sydney, Australia
+        default_longitude 151.0
+      end
+    end
+  end
+end
+```
 
 LICENSE
 =======
