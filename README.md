@@ -59,7 +59,7 @@ LICENSE
 =======
 rails_admin_map_field is licensed under the MIT license.
 
-Copyright (C) 2011 by Jason Langenauer <jason@jasonlangenauer.com>
+Copyright (C) 2011 by Jason Langenauer
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
