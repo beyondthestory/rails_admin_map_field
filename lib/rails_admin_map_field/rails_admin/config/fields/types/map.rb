@@ -28,6 +28,11 @@ module RailsAdmin::Config::Fields::Types
       -0.126 # Longitude of London, United Kingdom
     end
 
+    # Default zoom level of the map
+    register_instance_option(:default_zoom_level) do
+      8
+    end
+
     def dom_name
       @dom_name ||= "#{bindings[:form].object_name}_#{@name}_#{@longitude_field}"
     end

@@ -7,7 +7,7 @@
       var latlng = new google.maps.LatLng(#{form.object.send(field.name) || field.default_latitude}, #{form.object.send(field.longitude_field) || field.default_longitude});
 
       var myOptions = {
-        zoom: 8,
+        zoom: #{field.default_zoom_level},
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
