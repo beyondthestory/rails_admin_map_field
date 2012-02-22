@@ -8,6 +8,18 @@ module RailsAdmin::Config::Fields::Types
       :longitude
     end
 
+    register_instance_option(:address_field) do
+      :address
+    end
+
+    register_instance_option(:city_field) do
+      :city
+    end
+
+    register_instance_option(:state_field) do
+      :state
+    end
+
     register_instance_option(:partial) do
       :form_map
     end
