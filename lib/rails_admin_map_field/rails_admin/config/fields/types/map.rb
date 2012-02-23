@@ -32,12 +32,12 @@ module RailsAdmin::Config::Fields::Types
     # Latitude value to display in the map if the latitude attribute is nil
     # (Otherwise the location defaults to (0,0) which is in the Gulf of Guinea
     register_instance_option(:default_latitude) do
-      51.5 # Latitude of London, United Kingdom
+      40.711417 # Latitude of Jersey City, NJ
     end
 
     # Longitude value to display if the longitude attribute is nil
     register_instance_option(:default_longitude) do
-      -0.126 # Longitude of London, United Kingdom
+      74.0647 # Longitude of Jersey City, NJ
     end
 
     # Default zoom level of the map

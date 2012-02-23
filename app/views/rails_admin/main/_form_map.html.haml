@@ -22,9 +22,31 @@
       });
 
   :plain
-      google.maps.event.addListener(map, 'click', function(e) {
-        updateLocation(e.latLng);
-      });
+      var old_address = "";
+      jQuery("##{field.address_dom_name},##{field.city_dom_name},##{field.state_dom_name}").bind("blur", function(){
+        // geocode based on this location
+        var address = $("##{field.address_dom_name}").val(),
+        city = $("##{field.city_dom_name}").val(),
+        state = $("##{field.state_dom_name}").val(),
+        address_string = "",
+        changed = false;
+
+        if (address.length === 0 || city.length === 0 || state.length === 0)
+          return;
+
+        address_string = [address + ",", city, self.get("state"), self.get("zip")].join(" ");
+        if (address_string === old_address)
+          return;
+
+        old_address = address_string;
+
+        Science.MapView.geocoder.geocode({ 'address': address_string }, function(results, status){
+          if (! results || results.length === 0 || status !== "OK") return;
+          
+          var location = results[0].geometry.location;
+          updateLocation(location)
+        });
+      }
 
       function updateLocation(location) {
         if(marker) {
