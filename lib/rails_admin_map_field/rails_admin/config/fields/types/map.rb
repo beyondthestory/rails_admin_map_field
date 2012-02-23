@@ -5,19 +5,19 @@ module RailsAdmin::Config::Fields::Types
     # THe name of the corresponding longitude field to match the latitude field
     # in this object.
     register_instance_option(:longitude_field) do
-      :longitude
+      "longitude"
     end
 
     register_instance_option(:address_field) do
-      :address
+      "address"
     end
 
     register_instance_option(:city_field) do
-      :city
+      "city"
     end
 
     register_instance_option(:state_field) do
-      :state
+      "state"
     end
 
     register_instance_option(:partial) do

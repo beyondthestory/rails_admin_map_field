@@ -34,7 +34,7 @@
         if (address.length === 0 || city.length === 0 || state.length === 0)
           return;
 
-        address_string = [address + ",", city, self.get("state"), self.get("zip")].join(" ");
+        address_string = [address, city, state].join(", ");
         if (address_string === old_address)
           return;
 
