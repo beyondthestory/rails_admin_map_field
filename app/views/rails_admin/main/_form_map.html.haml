@@ -13,6 +13,8 @@
       };
 
       var map = new google.maps.Map(document.getElementById("#{field.dom_name}"), myOptions);
+      var geocoder = new google.maps.Geocoder();
+
 
   - if form.object.send(field.name) && form.object.send(field.longitude_field)
     :plain
@@ -40,7 +42,7 @@
 
         old_address = address_string;
 
-        Science.MapView.geocoder.geocode({ 'address': address_string }, function(results, status){
+        geocoder.geocode({ 'address': address_string }, function(results, status){
           if (! results || results.length === 0 || status !== "OK") return;
           
           var location = results[0].geometry.location;
