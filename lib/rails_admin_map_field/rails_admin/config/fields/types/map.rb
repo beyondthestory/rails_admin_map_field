@@ -56,5 +56,17 @@ module RailsAdmin::Config::Fields::Types
     def longitude_dom_name
       @lon_dom_name ||= "#{bindings[:form].object_name}_#{@longitude_field}"
     end
+
+    def address_dom_name
+      @address_dom_name ||= "#{bindings[:form].object_name}_#{@address_field}"
+    end
+
+    def city_dom_name
+      @city_dom_name ||= "#{bindings[:form].object_name}_#{@city_field}"
+    end
+
+    def state_dom_name
+      @state_dom_name ||= "#{bindings[:form].object_name}_#{@state_field}"
+    end
   end
 end
