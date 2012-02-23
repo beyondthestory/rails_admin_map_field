@@ -5,19 +5,19 @@ module RailsAdmin::Config::Fields::Types
     # THe name of the corresponding longitude field to match the latitude field
     # in this object.
     register_instance_option(:longitude_field) do
-      :longitude
+      "longitude"
     end
 
     register_instance_option(:address_field) do
-      :address
+      "address"
     end
 
     register_instance_option(:city_field) do
-      :city
+      "city"
     end
 
     register_instance_option(:state_field) do
-      :state
+      "state"
     end
 
     register_instance_option(:partial) do
@@ -46,15 +46,27 @@ module RailsAdmin::Config::Fields::Types
     end
 
     def dom_name
-      @dom_name ||= "#{bindings[:form].object_name}_#{@name}_#{@longitude_field}"
+      "#{bindings[:form].object_name}_#{@name}_#{longitude_field}"
     end
 
     def latitude_dom_name
-      @lat_dom_name ||= "#{bindings[:form].object_name}_#{@name}"
+      "#{bindings[:form].object_name}_#{@name}"
     end
 
     def longitude_dom_name
-      @lon_dom_name ||= "#{bindings[:form].object_name}_#{@longitude_field}"
+      "#{bindings[:form].object_name}_#{longitude_field}"
+    end
+
+    def address_dom_name
+      "#{bindings[:form].object_name}_#{address_field}"
+    end
+
+    def city_dom_name
+      "#{bindings[:form].object_name}_#{city_field}"
+    end
+
+    def state_dom_name
+      "#{bindings[:form].object_name}_#{state_field}"
     end
   end
 end
