@@ -2,6 +2,10 @@ module RailsAdmin::Config::Fields::Types
   class Map < RailsAdmin::Config::Fields::Base
     RailsAdmin::Config::Fields::Types::register(:map, self)
 
+    def allowed_methods
+      [@name, longitude_field]
+    end
+
     # THe name of the corresponding longitude field to match the latitude field
     # in this object.
     register_instance_option(:longitude_field) do
