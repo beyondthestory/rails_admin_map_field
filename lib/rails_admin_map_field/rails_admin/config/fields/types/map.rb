@@ -34,7 +34,7 @@ module RailsAdmin::Config::Fields::Types
     end
 
     def dom_name
-      @dom_name ||= "#{bindings[:form].object_name}_#{@name}_#{@longitude_field}"
+      @dom_name ||= "#{bindings[:form].object_name}_#{@name}_#{longitude_field}"
     end
 
     def latitude_dom_name
@@ -42,7 +42,7 @@ module RailsAdmin::Config::Fields::Types
     end
 
     def longitude_dom_name
-      @lon_dom_name ||= "#{bindings[:form].object_name}_#{@longitude_field}"
+      @lon_dom_name ||= "#{bindings[:form].object_name}_#{longitude_field}"
     end
   end
 end
