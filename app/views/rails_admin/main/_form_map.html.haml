@@ -1,7 +1,8 @@
-= javascript_include_tag ("http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=false")
+= javascript_include_tag ("http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=false&callback=init_map_field")
 
 = javascript_tag do
   :plain
+    function init_map_field(){
     jQuery(function(){
       var marker = null;
       var latlng = new google.maps.LatLng(#{form.object.send(field.name) || field.default_latitude}, #{form.object.send(field.longitude_field) || field.default_longitude});
@@ -41,7 +42,7 @@
         jQuery("##{field.longitude_dom_name}").val(location.lng());
       }
 
-    });
+    })};
 %div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px"}
 = form.send :hidden_field, field.name, :id => field.latitude_dom_name
 = form.send :hidden_field, field.longitude_field, :id => field.longitude_dom_name
