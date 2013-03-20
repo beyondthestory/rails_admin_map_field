@@ -5,6 +5,7 @@
     function init_map_field(){
     jQuery(function(){
       var marker = null;
+
       var latlng = new google.maps.LatLng(#{form.object.send(field.name) || field.default_latitude}, #{form.object.send(field.longitude_field) || field.default_longitude});
 
       var myOptions = {
@@ -21,6 +22,12 @@
         position: new google.maps.LatLng(#{form.object.send(field.name)},#{form.object.send(field.longitude_field)}),
         map: map
       });
+      google.maps.event.addListener(marker, 'click', function(e) {
+        marker.setMap(null);
+        jQuery("##{field.latitude_dom_name}").val(null);
+        jQuery("##{field.longitude_dom_name}").val(null);
+      });
+
 
   :plain
       google.maps.event.addListener(map, 'click', function(e) {
@@ -30,11 +37,17 @@
       function updateLocation(location) {
         if(marker) {
           marker.setPosition(location);
+          marker.setMap(map);
         } else {
           marker = new google.maps.Marker({
             position: location,
             map: map
           });
+        google.maps.event.addListener(marker, 'click', function(e) {
+          marker.setMap(null);
+          jQuery("##{field.latitude_dom_name}").val(null);
+          jQuery("##{field.longitude_dom_name}").val(null);
+        });
         }
 
         map.setCenter(location);
