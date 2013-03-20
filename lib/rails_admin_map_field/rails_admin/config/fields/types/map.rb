@@ -37,6 +37,17 @@ module RailsAdmin::Config::Fields::Types
       8
     end
 
+    # Google Maps API Key - optional
+    register_instance_option(:map_width) do
+      "300px"
+    end
+
+    # Google Maps API Key - optional
+    register_instance_option(:map_height) do
+      "200px"
+    end
+
+
     def dom_name
       @dom_name ||= "#{bindings[:form].object_name}_#{@name}_#{longitude_field}"
     end
