@@ -2,6 +2,10 @@ module RailsAdmin::Config::Fields::Types
   class Map < RailsAdmin::Config::Fields::Base
     RailsAdmin::Config::Fields::Types::register(:map, self)
 
+    def allowed_methods
+      [@name, longitude_field]
+    end
+
     # THe name of the corresponding longitude field to match the latitude field
     # in this object.
     register_instance_option(:longitude_field) do
@@ -45,8 +49,19 @@ module RailsAdmin::Config::Fields::Types
       8
     end
 
+    # Google Maps API Key - optional
+    register_instance_option(:map_width) do
+      "300px"
+    end
+
+    # Google Maps API Key - optional
+    register_instance_option(:map_height) do
+      "200px"
+    end
+
+
     def dom_name
-      "#{bindings[:form].object_name}_#{@name}_#{longitude_field}"
+      @dom_name ||= "#{bindings[:form].object_name}_#{@name}_#{longitude_field}"
     end
 
     def latitude_dom_name
@@ -54,7 +69,7 @@ module RailsAdmin::Config::Fields::Types
     end
 
     def longitude_dom_name
-      "#{bindings[:form].object_name}_#{longitude_field}"
+      @lon_dom_name ||= "#{bindings[:form].object_name}_#{longitude_field}"
     end
 
     def address_dom_name
