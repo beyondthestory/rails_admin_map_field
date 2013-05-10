@@ -25,18 +25,21 @@
 
   :plain
       var old_address = "";
-      jQuery("##{field.address_dom_name},##{field.city_dom_name},##{field.state_dom_name}").bind("blur", function(){
+      function processAddress() {
         // geocode based on this location
         var address = $("##{field.address_dom_name}").val(),
-        city = $("##{field.city_dom_name}").val(),
-        state = $("##{field.state_dom_name}").val(),
+        city = $("##{field.city_dom_name}").val() || "",
+        state = $("##{field.state_dom_name}").val() || "",
         address_string = "",
         changed = false;
 
-        if (address.length === 0 || city.length === 0 || state.length === 0)
+        if (address.length === 0)
           return;
 
-        address_string = [address, city, state].join(", ");
+        address_string = address;
+        if(city) address_string += ", " + city;
+        if(state) address_string += ", " + state;
+
         if (address_string === old_address)
           return;
 
@@ -44,11 +47,11 @@
 
         geocoder.geocode({ 'address': address_string }, function(results, status){
           if (! results || results.length === 0 || status !== "OK") return;
-          
+
           var location = results[0].geometry.location;
           updateLocation(location)
         });
-      });
+      };
 
       function updateLocation(location) {
         if(marker) {
@@ -64,6 +67,9 @@
         jQuery("##{field.latitude_dom_name}").val(location.lat());
         jQuery("##{field.longitude_dom_name}").val(location.lng());
       }
+
+      jQuery("##{field.address_dom_name},##{field.city_dom_name},##{field.state_dom_name}").bind("blur", processAddress);
+      processAddress();
 
     });
 %div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px"}
