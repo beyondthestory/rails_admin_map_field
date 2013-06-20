@@ -39,7 +39,7 @@
           if(city) address_string += ", " + city;
           if(state) address_string += ", " + state;
 
-          if (address_string === old_address)
+          if ((address === undefined) || (address.length === 0))
             return;
 
           old_address = address_string;
