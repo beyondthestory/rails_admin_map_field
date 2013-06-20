@@ -48,9 +48,13 @@
             if (! results || results.length === 0 || status !== "OK") return;
 
             var location = results[0].geometry.location;
-            updateLocation(location)
+            updateLocation(location);
           });
         };
+
+        google.maps.event.addListener(map, 'click', function(e) {
+          updateLocation(e.latLng);
+        });
 
         function updateLocation(location) {
           if(marker) {
