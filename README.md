@@ -1,4 +1,13 @@
-Rails Admin Map Field
+Rails Admin Map Field fork:
+- map resizing in config
+  ```
+  field :lat, :map do
+    map_width '600px'
+    map_height '400px'
+  end
+  ```
+
+- adds :latitude, :longitude live text fields below map
 =====================
 
 rails_admin_map_field is a gem that works with sferik's **rails_admin** (https://github.com/sferik/rails_admin) to provide an easy to use Google Maps interface for displaying and setting geographic co-ordinates in a model.
@@ -11,7 +20,7 @@ Usage
 rails_admin_map_field expects that the model will have two attributes, one for latitude and one for longitude of the point represented. To enable rails_admin_map_field, add the following to your `Gemfile`:
 
 ```ruby
-gem "rails_admin_map_field", :git => "git://github.com/trademobile/rails_admin_map_field.git"
+gem "rails_admin_map_field", :git => "git://github.com/BartlomiejSkwira/rails_admin_map_field.git"
 ```
 
 Then, add in your `config/initializers/rails_admin.rb` initializer:
