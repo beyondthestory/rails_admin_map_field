@@ -80,5 +80,12 @@
 = javascript_include_tag ("http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=false&callback=initMapField")
 
 %div.ramf-map-container{:id => field.dom_name, :style => "width:#{field.map_width};height:#{field.map_height}"}
-= form.send :hidden_field, field.name, :id => field.latitude_dom_name
-= form.send :hidden_field, field.longitude_field, :id => field.longitude_dom_name
+%div.control-group
+  = form.send :label, field.name, :class => "control-label"
+  %div.controls
+    = form.send :text_field, field.name, :id => field.latitude_dom_name
+
+%div.control-group
+  = form.send :label, field.longitude_field, :class => "control-label"
+  %div.controls
+    = form.send :text_field, field.longitude_field, :id => field.longitude_dom_name
