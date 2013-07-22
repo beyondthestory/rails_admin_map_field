@@ -1,3 +1,7 @@
+%div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px"}
+= form.send :hidden_field, field.name, :id => field.latitude_dom_name
+= form.send :hidden_field, field.longitude_field, :id => field.longitude_dom_name
+
 = javascript_include_tag ("http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=false&callback=init_map_field")
 
 = javascript_tag do
@@ -43,6 +47,3 @@
       }
 
     })};
-%div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px"}
-= form.send :hidden_field, field.name, :id => field.latitude_dom_name
-= form.send :hidden_field, field.longitude_field, :id => field.longitude_dom_name
