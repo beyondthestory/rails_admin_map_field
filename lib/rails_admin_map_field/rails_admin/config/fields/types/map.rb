@@ -69,9 +69,7 @@ module RailsAdmin::Config::Fields::Types
     end
 
     def longitude_dom_name
-<<<<<<< HEAD
       "#{bindings[:form].object_name}_#{longitude_field}"
-<<<<<<< HEAD
     end
 
     def address_dom_name
@@ -84,11 +82,6 @@ module RailsAdmin::Config::Fields::Types
 
     def state_dom_name
       "#{bindings[:form].object_name}_#{state_field}"
-=======
->>>>>>> 1710eaa... trying without globals?
-=======
-      @lon_dom_name ||= "#{bindings[:form].object_name}_#{longitude_field}"
->>>>>>> 16a352b... add map_width and map_height, and run map code in gmap load callback
     end
 
     def address_dom_name
