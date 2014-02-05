@@ -59,41 +59,37 @@ module RailsAdmin::Config::Fields::Types
       "200px"
     end
 
+    def sanitized_object_name(object_name)
+      object_name.gsub(/]\[|[^-a-zA-Z0-9:.]/,"_").sub(/_$/,"")
+    end
+
+
+    def form_tag_id(object_name, field)
+      "#{sanitized_object_name(object_name.to_s)}_#{field.to_s}"
+    end
 
     def dom_name
-      @dom_name ||= "#{bindings[:form].object_name}_#{@name}_#{longitude_field}"
+      @dom_name ||= "#{form_tag_id(bindings[:form].object_name, @name)}_#{longitude_field}"
     end
 
     def latitude_dom_name
-      "#{bindings[:form].object_name}_#{@name}"
+      form_tag_id(bindings[:form].object_name, @name)
     end
 
     def longitude_dom_name
-      "#{bindings[:form].object_name}_#{longitude_field}"
+      form_tag_id(bindings[:form].object_name, longitude_field)
     end
 
     def address_dom_name
-      "#{bindings[:form].object_name}_#{address_field}"
+      form_tag_id(bindings[:form].object_name, address_field)
     end
 
     def city_dom_name
-      "#{bindings[:form].object_name}_#{city_field}"
+      form_tag_id(bindings[:form].object_name, city_field)
     end
 
     def state_dom_name
-      "#{bindings[:form].object_name}_#{state_field}"
-    end
-
-    def address_dom_name
-      "#{bindings[:form].object_name}_#{address_field}"
-    end
-
-    def city_dom_name
-      "#{bindings[:form].object_name}_#{city_field}"
-    end
-
-    def state_dom_name
-      "#{bindings[:form].object_name}_#{state_field}"
+      form_tag_id(bindings[:form].object_name, state_field)
     end
   end
 end
