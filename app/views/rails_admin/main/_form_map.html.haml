@@ -8,7 +8,8 @@
         var myOptions = {
           zoom: #{field.default_zoom_level},
           center: latlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          scrollwheel: false
         };
 
         var map = new google.maps.Map(document.getElementById("#{field.dom_name}"), myOptions);
@@ -18,6 +19,7 @@
   - if form.object.send(field.name) && form.object.send(field.longitude_field)
     :plain
         marker = new google.maps.Marker({
+          draggable:true,
           position: new google.maps.LatLng(#{form.object.send(field.name)},#{form.object.send(field.longitude_field)}),
           map: map
         });
@@ -25,6 +27,7 @@
   :plain
         var old_address = "";
         function processAddress() {
+          console.log('111')
           // geocode based on this location
           var address = $("##{field.address_dom_name}").val(),
           city = $("##{field.city_dom_name}").val() || "",
@@ -48,30 +51,42 @@
             if (! results || results.length === 0 || status !== "OK") return;
 
             var location = results[0].geometry.location;
-            updateLocation(location);
+            updateLocation(location, true);
           });
         };
 
         google.maps.event.addListener(map, 'click', function(e) {
-          updateLocation(e.latLng);
+          updateLocation(e.latLng, false);
         });
 
-        function updateLocation(location) {
+        google.maps.event.addListener(marker,'dragend',function(event) {
+            jQuery("##{field.latitude_dom_name}").val(this.position.lat());
+            jQuery("##{field.longitude_dom_name}").val(this.position.lng());
+        });
+
+        function updateLocation(location, center) {
           if(marker) {
             marker.setPosition(location);
           } else {
             marker = new google.maps.Marker({
+              draggable:true,
               position: location,
               map: map
             });
           }
 
-          map.setCenter(location);
+          if (center){
+            map.setCenter(location);
+          }
           jQuery("##{field.latitude_dom_name}").val(location.lat());
           jQuery("##{field.longitude_dom_name}").val(location.lng());
         }
 
-        jQuery("##{field.address_dom_name},##{field.city_dom_name},##{field.state_dom_name}").bind("blur", processAddress);
+        jQuery("##{field.address_dom_name},##{field.city_dom_name},##{field.state_dom_name}").on("keyup", function(){
+          clearTimeout($.data(this, 'timer'));
+          var wait = setTimeout(processAddress, 1000);
+          $(this).data('timer', wait);
+        });
         processAddress();
 
       });
@@ -79,7 +94,11 @@
 
 = javascript_include_tag ("http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=false&callback=initMapField")
 
-%div.ramf-map-container{:id => field.dom_name, :style => "width:#{field.map_width};height:#{field.map_height}"}
+%style
+  = "##{field.dom_name} label {width: auto;display: inline;}"
+  = "##{field.dom_name} img {max-width: none;}"
+
+%div.ramf-map-container{:id => field.dom_name, :style => "width:#{field.map_width}px; height:#{field.map_height}px"}
 %div.control-group
   = form.send :label, field.name, :class => "control-label"
   %div.controls
