@@ -1,28 +1,31 @@
-Rails Admin Map Field fork:
-- map resizing in config
-- map marker draggable
-- custom label
-```
-field :lat, :map do
-  map_width 600
-  map_height 400
-  map_label "Map"
-end
-```
-
-- adds :latitude, :longitude live text fields below map
+Rails Admin Map Field:
+=====
 
 rails_admin_map_field is a gem that works with sferik's **rails_admin** (https://github.com/sferik/rails_admin) to provide an easy to use Google Maps interface for displaying and setting geographic co-ordinates in a model.
 
-Where a latitude and longitude is set on the model, it is indicated by a marker shown on a Google map centered at the marker. The administrator is expected to also store address, city, and state fields.  As these fields are filled in, the Maps API is used to geocode the address in order to determine the latitude and longitude of the map marker, which is updated on the fly.
+Where a latitude and longitude is set on the model(or below map), it is indicated by a marker shown on a Google map centered at the marker. The administrator is expected to also store address, city, and state fields.  As these fields are filled in, the Maps API is used to geocode the address in order to determine the latitude and longitude of the map marker, which is updated on the fly.
 
 Usage
 =====
 
+*New features:
+- map resizing in config
+- map marker draggable
+- custom label for latitude field
+```
+field :latitude, :map do
+  map_width 600
+  map_height 400
+  map_label "Map"
+end
+
+- adds :latitude, :longitude live text fields below map
+
+
 rails_admin_map_field expects that the model will have two attributes, one for latitude and one for longitude of the point represented. To enable rails_admin_map_field, add the following to your `Gemfile`:
 
 ```ruby
-gem "rails_admin_map_field", :github => "sudosu/rails_admin_map_field"
+gem "rails_admin_map_field", :git => "git://github.com/beyondthestory/rails_admin_map_field.git"
 ```
 
 Then, add in your `config/initializers/rails_admin.rb` initializer:
@@ -49,9 +52,12 @@ For different configurations, rails_admin_map_field can be configured with the f
 - `city_field` - the name of the city field. Defaults to "city"
 - `state_field` - the name of the state field. Defaults to "state"
 - `google_api_key` - if you use a Google Maps API Key, it can be specified here.
-- `default_latitude` - the latitude to center the map shown on if the latitude field is blank. Defaults to 51.5, the latitude of London, UK.
-- `default_longitude` - the longitude used if the longitude field is blank. Defaults to -0.126, the longitude of London, UK.
+- `default_latitude` - the latitude to center the map shown on if the latitude field is blank. Defaults to 40.711417, the latitude of New Jersey City, NJ, USA
+- `default_longitude` - the longitude used if the longitude field is blank. Defaults to 74.0647, the longitude of New Jersey City, NJ, USA.
+- `map_width` - map width in px, eg: '400'
+- `map_height` - map height
 - `map_label` - label for map field. Defaults to "Map"
+
 
 A more complicated configuration example:
 
@@ -74,7 +80,8 @@ LICENSE
 =======
 rails_admin_map_field is licensed under the MIT license.
 
-Copyright (C) 2011 by Jason Langenauer and Jules Laplace
+Copyright (C) 2011 by Jason Langenauer, Jules Laplace, Valentin
+Ballestrino, Bartlomiej Skwira, Oleg Popadyuk
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
