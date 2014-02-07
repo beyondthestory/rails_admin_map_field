@@ -1,96 +1,76 @@
-= javascript_tag do
-  :plain
-    function initMapField() {
-      jQuery(function(){
-        var marker = null;
-        var latlng = new google.maps.LatLng(#{form.object.send(field.name) || field.default_latitude}, #{form.object.send(field.longitude_field) || field.default_longitude});
+:javascript
+  function initMapField() {
+    jQuery(function(){
+      var latitude = #{form.object.send(field.name) || field.default_latitude};
+      var longitude = #{form.object.send(field.longitude_field) || field.default_longitude};
+      var latlng = new google.maps.LatLng(latitude, longitude);
+      var geocoder = new google.maps.Geocoder();
 
-        var myOptions = {
-          zoom: #{field.default_zoom_level},
-          center: latlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          scrollwheel: false
-        };
+      var myOptions = {
+        zoom: #{field.default_zoom_level},
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        scrollwheel: false
+      };
 
-        var map = new google.maps.Map(document.getElementById("#{field.dom_name}"), myOptions);
-        var geocoder = new google.maps.Geocoder();
+      var map = new google.maps.Map(document.getElementById("#{field.dom_name}"), myOptions);
 
-
-  - if form.object.send(field.name) && form.object.send(field.longitude_field)
-    :plain
-        marker = new google.maps.Marker({
-          draggable:true,
-          position: new google.maps.LatLng(#{form.object.send(field.name)},#{form.object.send(field.longitude_field)}),
-          map: map
-        });
-
-  :plain
-        var old_address = "";
-        function processAddress() {
-          console.log('111')
-          // geocode based on this location
-          var address = $("##{field.address_dom_name}").val(),
-          city = $("##{field.city_dom_name}").val() || "",
-          state = $("##{field.state_dom_name}").val() || "",
-          address_string = "",
-          changed = false;
-
-          if (address.length === 0)
-            return;
-
-          address_string = address;
-          if(city) address_string += ", " + city;
-          if(state) address_string += ", " + state;
-
-          if ((address === undefined) || (address.length === 0))
-            return;
-
-          old_address = address_string;
-
-          geocoder.geocode({ 'address': address_string }, function(results, status){
-            if (! results || results.length === 0 || status !== "OK") return;
-
-            var location = results[0].geometry.location;
-            updateLocation(location, true);
-          });
-        };
-
-        google.maps.event.addListener(map, 'click', function(e) {
-          updateLocation(e.latLng, false);
-        });
-
-        google.maps.event.addListener(marker,'dragend',function(event) {
-            jQuery("##{field.latitude_dom_name}").val(this.position.lat());
-            jQuery("##{field.longitude_dom_name}").val(this.position.lng());
-        });
-
-        function updateLocation(location, center) {
-          if(marker) {
-            marker.setPosition(location);
-          } else {
-            marker = new google.maps.Marker({
-              draggable:true,
-              position: location,
-              map: map
-            });
-          }
-
-          if (center){
-            map.setCenter(location);
-          }
-          jQuery("##{field.latitude_dom_name}").val(location.lat());
-          jQuery("##{field.longitude_dom_name}").val(location.lng());
-        }
-
-        jQuery("##{field.address_dom_name},##{field.city_dom_name},##{field.state_dom_name}").on("keyup", function(){
-          clearTimeout($.data(this, 'timer'));
-          var wait = setTimeout(processAddress, 1000);
-          $(this).data('timer', wait);
-        });
-        processAddress();
-
+      // Only one marker can be created
+      var marker = new google.maps.Marker({
+        draggable:true,
+        position: new google.maps.LatLng(latitude, longitude),
+        map: map
       });
-    }
+
+      google.maps.event.addListener(map, 'click', function(e) {
+        updateLocation(e.latLng);
+      });
+
+      google.maps.event.addListener(marker,'dragend',function(e) {
+        updateLocation(e.latLng);
+      });
+
+      jQuery("##{field.address_dom_name},##{field.city_dom_name},##{field.state_dom_name}").on("keyup", function(){
+        clearTimeout($.data(this, 'timer'));
+        $(this).data('timer', setTimeout(processAddress, 1000));
+      });
+
+      function processAddress() {
+        // geocode based on this location
+        var address = $("##{field.address_dom_name}").val(),
+        city = $("##{field.city_dom_name}").val() || false,
+        state = $("##{field.state_dom_name}").val() || false,
+        address_string = "",
+        changed = false;
+
+        if (address.length === 0)
+          return;
+
+        address_string = address;
+        if (city) address_string += ", " + city;
+        if (state) address_string += ", " + state;
+
+        if ((address === undefined) || (address.length === 0))
+          return;
+
+        geocoder.geocode({ 'address': address_string }, function(results, status){
+          if (! results || results.length === 0 || status !== "OK") return;
+
+          var location = results[0].geometry.location;
+          updateLocation(location);
+        });
+      };
+
+      function updateLocation(location) {
+        marker.setPosition(location);
+        map.setCenter(location);
+
+        jQuery("##{field.latitude_dom_name}").val(location.lat());
+        jQuery("##{field.longitude_dom_name}").val(location.lng());
+      }
+
+    });
+  }
 
 = javascript_include_tag ("http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=false&callback=initMapField")
 
