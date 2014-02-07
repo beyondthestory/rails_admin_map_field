@@ -10,10 +10,13 @@ Usage
 
 *New features:
 - map resizing in config
+- map marker draggable
+- custom label for latitude field
 ```
-field :lat, :map do
-  map_width '600px'
-  map_height '400px'
+field :latitude, :map do
+  map_width 600
+  map_height 400
+  map_label "Map"
 end
 
 - adds :latitude, :longitude live text fields below map
@@ -49,10 +52,11 @@ For different configurations, rails_admin_map_field can be configured with the f
 - `city_field` - the name of the city field. Defaults to "city"
 - `state_field` - the name of the state field. Defaults to "state"
 - `google_api_key` - if you use a Google Maps API Key, it can be specified here.
-- `default_latitude` - the latitude to center the map shown on if the latitude field is blank. Defaults to 51.5, the latitude of London, UK.
-- `default_longitude` - the longitude used if the longitude field is blank. Defaults to -0.126, the longitude of London, UK.
-- map_width - map width, eg: '400px'
-- map_height - map height
+- `default_latitude` - the latitude to center the map shown on if the latitude field is blank. Defaults to 40.711417, the latitude of New Jersey City, NJ, USA
+- `default_longitude` - the longitude used if the longitude field is blank. Defaults to 74.0647, the longitude of New Jersey City, NJ, USA.
+- `map_width` - map width in px, eg: '400'
+- `map_height` - map height
+- `map_label` - label for map field. Defaults to "Map"
 
 
 A more complicated configuration example:
@@ -77,7 +81,7 @@ LICENSE
 rails_admin_map_field is licensed under the MIT license.
 
 Copyright (C) 2011 by Jason Langenauer, Jules Laplace, Valentin
-Ballestrino, Bartlomiej Skwira
+Ballestrino, Bartlomiej Skwira, Oleg Popadyuk
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
