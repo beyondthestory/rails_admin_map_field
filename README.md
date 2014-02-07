@@ -12,12 +12,13 @@ Usage
 - map resizing in config
 - map marker draggable
 - custom label for latitude field
-```
+```ruby
 field :latitude, :map do
   map_width 600
   map_height 400
   map_label "Map"
 end
+```
 
 - adds :latitude, :longitude live text fields below map
 
