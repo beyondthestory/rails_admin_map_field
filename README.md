@@ -1,10 +1,11 @@
 Rails Admin Map Field fork:
 - map resizing in config
+- map marker draggable
 - custom label
 ```
 field :lat, :map do
-  map_width '600px'
-  map_height '400px'
+  map_width 600
+  map_height 400
   map_label "Map"
 end
 ```
