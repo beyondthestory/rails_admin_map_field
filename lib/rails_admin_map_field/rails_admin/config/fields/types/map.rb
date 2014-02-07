@@ -42,7 +42,6 @@ module RailsAdmin::Config::Fields::Types
     end
 
     # Latitude value to display in the map if the latitude attribute is nil
-    # (Otherwise the location defaults to (0,0) which is in the Gulf of Guinea
     register_instance_option(:default_latitude) do
       40.711417 # Latitude of Jersey City, NJ
     end
@@ -57,20 +56,19 @@ module RailsAdmin::Config::Fields::Types
       8
     end
 
-    # Google Maps API Key - optional
+    # Map heigth in px
     register_instance_option(:map_width) do
-      "300px"
+      300
     end
 
-    # Google Maps API Key - optional
+    # Map width in px
     register_instance_option(:map_height) do
-      "200px"
+      200
     end
 
     def sanitized_object_name(object_name)
       object_name.gsub(/]\[|[^-a-zA-Z0-9:.]/,"_").sub(/_$/,"")
     end
-
 
     def form_tag_id(object_name, field)
       "#{sanitized_object_name(object_name.to_s)}_#{field.to_s}"
