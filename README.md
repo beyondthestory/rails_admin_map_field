@@ -1,9 +1,11 @@
 Rails Admin Map Field fork:
 - map resizing in config
+- custom label
 ```
 field :lat, :map do
   map_width '600px'
   map_height '400px'
+  map_label "Map"
 end
 ```
 
@@ -48,6 +50,7 @@ For different configurations, rails_admin_map_field can be configured with the f
 - `google_api_key` - if you use a Google Maps API Key, it can be specified here.
 - `default_latitude` - the latitude to center the map shown on if the latitude field is blank. Defaults to 51.5, the latitude of London, UK.
 - `default_longitude` - the longitude used if the longitude field is blank. Defaults to -0.126, the longitude of London, UK.
+- `map_label` - label for map field. Defaults to "Map"
 
 A more complicated configuration example:
 
