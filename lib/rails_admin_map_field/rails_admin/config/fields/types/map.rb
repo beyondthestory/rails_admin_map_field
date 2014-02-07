@@ -28,6 +28,14 @@ module RailsAdmin::Config::Fields::Types
       :form_map
     end
 
+    register_instance_option(:map_label) do
+      "Map"
+    end
+
+    register_instance_option :label do
+      map_label
+    end
+
     # Google Maps API Key - optional
     register_instance_option(:google_api_key) do
       nil
