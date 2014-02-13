@@ -37,6 +37,14 @@ For different configurations, rails_admin_map_field can be configured with the f
 - `google_api_key` - if you use a Google Maps API Key, it can be specified here.
 - `default_latitude` - the latitude to center the map shown on if the latitude field is blank. Defaults to 51.5, the latitude of London, UK.
 - `default_longitude` - the longitude used if the longitude field is blank. Defaults to -0.126, the longitude of London, UK.
+- `draggable` - when to enable draggable map. Default true.
+- `scrollwheel` - when to enable scrolling map with mouse wheel. Default true.
+- `zoom_control` - when to enable zoom control on top of map. Default true.
+- `street_view_control` - when to enable street_view option. Default true.
+- `fixed_marker` - when to disable relocating the marker (like read_only true). Default false.
+- `disable_double_click_zoom` - when to disable zoom with mouse double click. Default false.
+- `width` - map width in px. Default 300.
+- `height` - map height in px. Default 200.
 
 A more complicated configuration example:
 
@@ -49,6 +57,7 @@ RailsAdmin.config do |config|
         google_api_key "a1b2c3d4e5f6deadbeef"
         default_latitude -34.0  # Sydney, Australia
         default_longitude 151.0
+        zoom_control false
       end
     end
   end

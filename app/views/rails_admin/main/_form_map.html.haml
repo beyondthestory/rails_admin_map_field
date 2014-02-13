@@ -10,6 +10,12 @@
       var myOptions = {
         zoom: #{field.default_zoom_level},
         center: latlng,
+        draggable: #{field.draggable},
+        scrollwheel: #{field.scrollwheel},
+        zoomControl: #{field.zoom_control},
+        disableDoubleClickZoom: #{field.disable_double_click_zoom},
+        streetViewControl: #{field.street_view_control},
+        center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
 
@@ -22,27 +28,28 @@
         map: map
       });
 
-  :plain
+  - unless field.fixed_marker
+    :plain
       google.maps.event.addListener(map, 'click', function(e) {
-        updateLocation(e.latLng);
-      });
+          updateLocation(e.latLng);
+        });
 
-      function updateLocation(location) {
-        if(marker) {
-          marker.setPosition(location);
-        } else {
-          marker = new google.maps.Marker({
-            position: location,
-            map: map
-          });
+        function updateLocation(location) {
+          if(marker) {
+            marker.setPosition(location);
+          } else {
+            marker = new google.maps.Marker({
+              position: location,
+              map: map
+            });
+          }
+
+          map.setCenter(location);
+          jQuery("##{field.latitude_dom_name}").val(location.lat());
+          jQuery("##{field.longitude_dom_name}").val(location.lng());
         }
-
-        map.setCenter(location);
-        jQuery("##{field.latitude_dom_name}").val(location.lat());
-        jQuery("##{field.longitude_dom_name}").val(location.lng());
-      }
-
-    })};
-%div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px"}
+  :plain
+      })};
+%div.ramf-map-container{:id => field.dom_name, :style => "width:#{field.width}px;height:#{field.height}px"}
 = form.send :hidden_field, field.name, :id => field.latitude_dom_name
 = form.send :hidden_field, field.longitude_field, :id => field.longitude_dom_name
