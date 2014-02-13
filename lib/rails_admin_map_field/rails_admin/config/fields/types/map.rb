@@ -16,6 +16,38 @@ module RailsAdmin::Config::Fields::Types
       :form_map
     end
 
+    register_instance_option(:draggable) do
+      true
+    end
+
+    register_instance_option(:scrollwheel) do
+      true
+    end
+
+    register_instance_option(:zoom_control) do
+      true
+    end
+
+    register_instance_option(:street_view_control) do
+      true
+    end
+
+    register_instance_option(:fixed_marker) do
+      false
+    end
+
+    register_instance_option(:disable_double_click_zoom) do
+      false
+    end
+
+    register_instance_option(:width) do
+      300
+    end
+
+    register_instance_option(:height) do
+      200
+    end
+
     # Google Maps API Key - optional
     register_instance_option(:google_api_key) do
       nil
