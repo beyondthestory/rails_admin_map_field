@@ -72,7 +72,7 @@
     });
   }
 
-= javascript_include_tag ("http://maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=false&callback=initMapField")
+= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{field.google_api_key}&sensor=false&callback=initMapField"
 
 %style
   = "##{field.dom_name} label {width: auto;display: inline;}"
